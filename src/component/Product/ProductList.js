@@ -5,24 +5,14 @@ import ModalDetail from './ModalDetail'
 export default class ProductList extends Component {
 
     state = {
-        productDetail: {
-            "id": 1,
-            "name": "Adidas Prophere",
-            "alias": "adidas-prophere",
-            "price": 350,
-            "description": "The adidas Primeknit upper wraps the foot with a supportive fit that enhances movement.\r\n\r\n",
-            "shortDescription": "The midsole contains 20% more Boost for an amplified Boost feeling.\r\n\r\n",
-            "quantity": 995,
-            "image": "http://svcy3.myclass.vn/images/adidas-prophere.png"
-        },
+        productDetail: {},
         isShowModal: false
     }
-
-
 
     renderProductList = () => {
         let listDataProduct = DataProductShoes.map((item, index) => {
             return <ProductItem
+            addToCart={this.props.addToCart}
             productItem={item}
             key={index}
             viewDetail={this.viewDetail} />
@@ -41,20 +31,23 @@ export default class ProductList extends Component {
             isShowModal: !this.state.isShowModal,
             productDetail: product
         })
+        document.querySelector('body').classList.add('modal-open')
     }
 
     closeModalDetail = () => {
         this.setState({
             isShowModal: !this.state.isShowModal,
         })
+        document.querySelector('body').classList.remove('modal-open')
     }
-    
 
     render() {
         return (
             <>
-                <div className='list__product'>
-                    {this.renderProductList()}
+                <div className="container-fluid">
+                    <div className='list__product'>
+                        {this.renderProductList()}
+                    </div>
                 </div>
                 {this.renderModalDetail()}
             </>

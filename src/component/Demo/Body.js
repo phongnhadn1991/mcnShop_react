@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import ProductList from '../Product/ProductList'
+import CartContainer from '../Cart/CartContainer'
 
 export default class Body extends Component {
   render() {
     return (
       <>
-          <ProductList/>
+          <CartContainer/>
       </>
     )
   }
