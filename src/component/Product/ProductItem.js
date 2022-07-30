@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 
-export default class ProductItem extends Component {
+import {connect} from 'react-redux'
+
+ class ProductItem extends Component {
   render() {
     let { productItem } = this.props
     let { name, image } = this.props.productItem
@@ -26,3 +28,17 @@ export default class ProductItem extends Component {
     )
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addToCart : (product) => {
+          let action = {
+            type : 'ADD_TO_CART',
+            product
+          }
+          dispatch(action);
+      }
+  }
+}
+
+export default connect(null,mapDispatchToProps)(ProductItem)

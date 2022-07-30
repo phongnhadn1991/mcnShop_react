@@ -157,5 +157,19 @@ footer {
         img {
             width: 50px;
         }
+        .qty {
+            span {
+                display: inline-block;
+                text-align: center;
+                min-width: 30px;
+            }
+            button {
+                padding: 0;
+                border: 0;
+                box-shadow: none;
+                outline: none;
+                margin: 0;
+            }
+        }
     }
 }

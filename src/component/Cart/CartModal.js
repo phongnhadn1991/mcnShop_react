@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+import {connect} from 'react-redux'
+
 class CartModal extends Component {
 
     renderCartListItem = () => {
@@ -9,12 +11,18 @@ class CartModal extends Component {
                     <th scope="row">{item.id}</th>
                     <td><img src={item.image} alt=""/></td>
                     <td>{item.name}</td>
-                    <td>{item.qty}</td>
-                    <td>{item.price * item.qty}</td>
+                    <td className="qty"><button onClick={() => {
+                        this.props.minusQty(item.id)
+                    }}><i className="bi bi-dash-square-fill"></i></button>
+                       <span>{item.qty}</span>
+                    <button onClick={() => {
+                        this.props.plusQty(item.id)
+                    }}><i className="bi bi-plus-square-fill"></i></button></td>
                     <td>{item.price}</td>
+                    <td>{item.price * item.qty}</td>
                     <td>
                         <button type="button" className="btn btn-danger btn-sm" onClick={()=>{
-                            this.props.deleteCart(item.id)
+                            this.props.deleteItemCart(item.id)
                         }}>
                             <i className="bi bi-x-lg"></i>
                         </button>
@@ -25,7 +33,7 @@ class CartModal extends Component {
         else {
             return <tr><td colSpan="6" className='text-center'>
                 <div className="alert alert-warning" role="alert">
-                    Chưa có sản phẩm trong giỏ hàng
+                    No item in carts.
                 </div>
             </td></tr>
         }
@@ -73,4 +81,30 @@ class CartModal extends Component {
     }
 }
 
-export default CartModal;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        deleteItemCart : (productID) => {
+            let action = {
+                type: 'DELETE_ITEM_CART',
+                productID
+            }
+            dispatch(action)
+        },
+        plusQty : (productID) => {
+            let action = {
+                type: 'PLUS_QTY_ITEM',
+                productID
+            }
+            dispatch(action)
+        },
+        minusQty : (productID) => {
+            let action = {
+                type: 'MINUS_QTY_ITEM',
+                productID
+            }
+            dispatch(action)
+        },
+    }
+}
+
+export default connect(null,mapDispatchToProps)(CartModal);
